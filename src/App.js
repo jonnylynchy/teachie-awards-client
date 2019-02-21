@@ -14,7 +14,7 @@ class App extends Component {
 
   
   upTest = () => {
-    fetch('http://teachie-awards-vpc.us-west-2.elasticbeanstalk.com/api/public/uptest')
+    fetch('https://teachie-awards-vpc.us-west-2.elasticbeanstalk.com/api/public/uptest')
       .then(response => response.text())
       .then(serverMessage => {
           this.setState({serverMessage: serverMessage});
