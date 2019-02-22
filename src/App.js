@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 
 import API from './utils/API';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,13 +23,35 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{this.state.message}</h1>
-          <h3>{this.state.serverMessage}</h3>
-        </header>
-      </div>
+      <React.Fragment>
+        <div className="d-flex flex-row-reverse mr-5">
+          <Nav>
+            <NavItem>
+              <NavLink href="#">Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">About</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">Awards</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">Vote</NavLink>
+            </NavItem>
+          </Nav>
+        </div>
+        <div className="container hero">
+          <div className="row">
+            <div className="col">
+              <div className="mt-5 pt-5">
+                <h1 className="mt-5 display-2">Teachie Awards</h1>
+                <p className="lead mt-4 ml-3">The Teachie Awards give students, faculty and communities the ability to recognize the educators among us who give their time to empower kids to have better and brighter futures.</p>
+                <p className="mt-4 ml-3"><small>{this.state.serverMessage}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
