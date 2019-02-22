@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import API from './utils/API';
 import logo from './logo.svg';
 import './App.css';
 
@@ -14,11 +16,9 @@ class App extends Component {
 
   
   upTest = () => {
-    fetch('https://teachie-awards-vpc.us-west-2.elasticbeanstalk.com/api/public/uptest')
-      .then(response => response.text())
-      .then(serverMessage => {
-          this.setState({serverMessage: serverMessage});
-      });
+    API.fetchMethod('/public/uptest')
+      .then(res => this.setState({serverMessage: res.data}))
+      .catch(err => console.log(err));
   };
 
   render() {
