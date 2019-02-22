@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+http://teachie-awards.netlify.com/* http://www.teachieawards.com/:splat 301!
