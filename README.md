@@ -1,7 +1,8 @@
 # Teachie Awards Client
 > Virtual awards for teachers.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e34e5a90-00f4-4500-86a7-80675e85d2ef/deploy-status)](https://app.netlify.com/sites/gracious-hypatia-c54ba4/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e34e5a90-00f4-4500-86a7-80675e85d2ef/deploy-status)](https://app.netlify.com/sites/gracious-hypatia-c54ba4/deploys) 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 This repo is the client-side/frontend of [https://www.teachieawards.com](https://www.teachieawards.com). It requires the backend/API server to be running:
 
