@@ -1,14 +1,15 @@
 # Teachie Awards Client
+
 > Virtual awards for teachers.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e34e5a90-00f4-4500-86a7-80675e85d2ef/deploy-status)](https://app.netlify.com/sites/gracious-hypatia-c54ba4/deploys) 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e34e5a90-00f4-4500-86a7-80675e85d2ef/deploy-status)](https://app.netlify.com/sites/teachie-awards/deploys)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 This repo is the client-side/frontend of [https://www.teachieawards.com](https://www.teachieawards.com). It requires the backend/API server to be running:
 
 [https://github.com/jonnylynchy/teachie-awards](https://github.com/jonnylynchy/teachie-awards).
 
-This project is a website that gives teachers recognition in the form of a virtual award, the "Teachie". In the future users will be able to donate or solicit donations in the form of a gift card, or some form of small compensation in electronic format. 
+This project is a website that gives teachers recognition in the form of a virtual award, the "Teachie". In the future users will be able to donate or solicit donations in the form of a gift card, or some form of small compensation in electronic format.
 Users could discreetly nominate a teacher and solicit others for votes. If the teacher acquires a certain number of votes, they will be selected to receive a “Teachie”. The award would be some simple artwork of an award or trophy with the teacher's name and a relevant category. It would be deliverable via email, Twitter, and Facebook.
 
 ## Installation
@@ -24,6 +25,7 @@ npm i
 This project requires that the backend/API server is running as well as NPM and Node for the front-end.
 
 To run development server (webpack development server):
+
 ```sh
 npm run start
 ```
