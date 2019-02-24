@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Form, FormGroup, FormFeedback, Label, Input, Button } from 'reactstrap';
+import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { validateAll } from 'indicative';
 
 const SignUp = () => {
@@ -49,12 +49,14 @@ const SignUp = () => {
 
         validateAll(data, rules, messages)
             .then(() => {
+                // reset errors
+                setFieldErrors({});
                 // post to api
             })
             .catch(errors => {
                 const formattedErrors = {};
                 errors.forEach(error => {
-                    console.log(error);
+                    // console.log(error);
                     formattedErrors[error.field] = error.message;
                 });
                 setFieldErrors(formattedErrors);
