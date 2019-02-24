@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, CardTitle, CardText, Button } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
 
 import award from '../images/temp-award-2.png';
 
@@ -45,8 +46,12 @@ const Home = props => {
                             <CardTitle>
                                 <h3>Fellow Faculty &amp; Students</h3>
                             </CardTitle>
-                            <CardText>Register to nominate and vote for your favorite teacher!</CardText>
-                            <Button color="primary">Register</Button>
+                            <CardText>
+                                Have someone in mind? Register to nominate and vote for your favorite teacher!
+                            </CardText>
+                            <Button color="primary" to="/register" tag={RRNavLink}>
+                                Register
+                            </Button>
                         </Card>
                     </Col>
                     <Col sm="6">
@@ -58,7 +63,9 @@ const Home = props => {
                                 Interested in participating in Teachies Register to be rewarded by your peers and
                                 students.
                             </CardText>
-                            <Button color="primary">Register</Button>
+                            <Button color="primary" to="/register" tag={RRNavLink}>
+                                Register
+                            </Button>
                         </Card>
                     </Col>
                 </Row>
