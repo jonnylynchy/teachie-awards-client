@@ -27,14 +27,14 @@ class App extends PureComponent {
         const { serverMessage } = this.state;
         return (
             <Router>
-                <React.Fragment>
+                <div className="h-100">
                     <div className="circle" />
                     <div className="hex" />
                     {/* NAV */}
                     <TopNav />
                     <Route exact path="/" render={() => <Home serverMessage={serverMessage} />} />
                     <Route exact path="/register" component={Register} />
-                </React.Fragment>
+                </div>
             </Router>
         );
     }
