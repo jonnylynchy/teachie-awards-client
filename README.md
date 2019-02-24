@@ -17,7 +17,7 @@ Users could discreetly nominate a teacher and solicit others for votes. If the t
 OS X, Linux & Windows:
 
 ```sh
-npm i
+yarn install
 ```
 
 ## Development setup
@@ -27,7 +27,7 @@ This project requires that the backend/API server is running as well as NPM and 
 To run development server (webpack development server):
 
 ```sh
-npm run start
+yarn start
 ```
 
 ## Deployment

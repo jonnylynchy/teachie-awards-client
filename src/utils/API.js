@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const BASEURL = 'https://api.teachieawards.com/api';
+const BASEURL = process.env.NODE_ENV === 'production' ? 'https://api.teachieawards.com/api' : '/api';
 
 export default {
-    fetchMethod: method => {
+    get: method => {
         return axios.get(`${BASEURL}${method}`);
     }
 };

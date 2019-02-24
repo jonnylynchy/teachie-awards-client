@@ -1,30 +1,35 @@
+body,
+html {
+    height: 100%;
+}
+
 body {
-  color: #5c5c5c;
+    color: #5c5c5c;
 }
 
 header {
-  background: linear-gradient(to right, #2a9dff 0%,#00e9d2 100%);
-  border-bottom: solid 1px #4a8cc6;
+    background: linear-gradient(to right, #2a9dff 0%, #00e9d2 100%);
+    border-bottom: solid 1px #4a8cc6;
 }
 
 .circle {
-  background-image: url('./images/left-circle-half.svg');
-  background-repeat:no-repeat;
-  position: absolute;
-  left:0;
-  top: 300px;
-  display: inline-block;
-  height: 548px;
-  width: 227px;
+    background-image: url('./images/left-circle-half.svg');
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 300px;
+    display: inline-block;
+    height: 548px;
+    width: 227px;
 }
 
 .hex {
-  background-image: url('./images/right-hex.svg');
-  background-repeat:no-repeat;
-  position: absolute;
-  right:0;
-  top: 150px;
-  display: inline-block;
-  height: 734px;
-  width: 218px;
+    background-image: url('./images/right-hex.svg');
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    top: 150px;
+    display: inline-block;
+    height: 734px;
+    width: 218px;
 }
