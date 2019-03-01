@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Col, Form, FormGroup, Label, Input, Button, Alert, NavLink } from 'reactstrap';
 import { validateAll } from 'indicative';
+import { NavLink as RRNavLink } from 'react-router-dom';
+
+import api from '../utils/API';
+
+const defaultState = { response: false, error: false };
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -10,6 +15,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [fieldErrors, setFieldErrors] = useState('');
+    const [registrationResponse, setRegistrationResponse] = useState(defaultState);
 
     const formStyle = {
         backgroundColor: '#fff',
@@ -20,6 +26,35 @@ const SignUp = () => {
         height: '90%',
         zIndex: 100,
         position: 'relative'
+    };
+
+    const clearResponseData = () => {
+        setRegistrationResponse(defaultState);
+    };
+
+    const postUserData = async data => {
+        // clear out response
+        clearResponseData();
+
+        // post to api
+        const response = await api.post('/auth/signup', data);
+        if (response && ((response.response && response.response.data) || response.data)) {
+            if (response.data && response.data.success) {
+                // Success!
+                setRegistrationResponse({ response: response.data.message });
+            } else {
+                // Error(s)
+                const {
+                    response: { data: responseData = null }
+                } = response;
+
+                const errorMessage =
+                    responseData.errors && responseData.errors && responseData.errors[0].field
+                        ? `${responseData.errors[0].field}: ${responseData.errors[0].defaultMessage}`
+                        : responseData.message;
+                setRegistrationResponse({ error: errorMessage });
+            }
+        }
     };
 
     const handleSubmit = event => {
@@ -51,12 +86,11 @@ const SignUp = () => {
             .then(() => {
                 // reset errors
                 setFieldErrors({});
-                // post to api
+                postUserData(data);
             })
             .catch(errors => {
                 const formattedErrors = {};
                 errors.forEach(error => {
-                    // console.log(error);
                     formattedErrors[error.field] = error.message;
                 });
                 setFieldErrors(formattedErrors);
@@ -73,95 +107,105 @@ const SignUp = () => {
         <div style={containerStyle} className="d-flex align-items-center">
             <div style={formStyle} className="w-50 mx-auto p-5 border border-primary rounded">
                 <h2>Sign Up</h2>
-                <Form className="form">
-                    <Col>
-                        <FormGroup>
-                            <Label>First Name</Label>
-                            <Input
-                                value={firstName}
-                                onChange={e => setFirstName(e.target.value)}
-                                type="text"
-                                name="firstName"
-                                id="firstName"
-                                placeholder="First Name"
-                            />
-                            {getErrorMessage('firstName')}
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label>Last Name</Label>
-                            <Input
-                                value={lastName}
-                                onChange={e => setLastName(e.target.value)}
-                                type="text"
-                                name="lastName"
-                                id="lastName"
-                                placeholder="Last Name"
-                            />
-                            {getErrorMessage('lastName')}
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label>Username</Label>
-                            <Input
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                                type="text"
-                                name="username"
-                                id="username"
-                                placeholder="Username"
-                            />
-                            {getErrorMessage('username')}
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label>Email</Label>
-                            <Input
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="myemail@email.com"
-                            />
-                            {getErrorMessage('email')}
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label for="password">Password</Label>
-                            <Input
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="********"
-                            />
-                            {getErrorMessage('password')}
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label for="passwordConfirmation">Password Confirmation</Label>
-                            <Input
-                                value={passwordConfirmation}
-                                onChange={e => setPasswordConfirmation(e.target.value)}
-                                type="password"
-                                name="passwordConfirmation"
-                                id="passwordConfirmation"
-                                placeholder="********"
-                            />
-                            {getErrorMessage('passwordConfirmation')}
-                        </FormGroup>
-                    </Col>
-                    <Button color="primary" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                </Form>
+                {registrationResponse.error ? <Alert color="danger">{registrationResponse.error}</Alert> : ''}
+                {!registrationResponse.response ? (
+                    <Form className="form">
+                        <Col>
+                            <FormGroup>
+                                <Label>First Name</Label>
+                                <Input
+                                    value={firstName}
+                                    onChange={e => setFirstName(e.target.value)}
+                                    type="text"
+                                    name="firstName"
+                                    id="firstName"
+                                    placeholder="First Name"
+                                />
+                                {getErrorMessage('firstName')}
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label>Last Name</Label>
+                                <Input
+                                    value={lastName}
+                                    onChange={e => setLastName(e.target.value)}
+                                    type="text"
+                                    name="lastName"
+                                    id="lastName"
+                                    placeholder="Last Name"
+                                />
+                                {getErrorMessage('lastName')}
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label>Username</Label>
+                                <Input
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder="Username"
+                                />
+                                {getErrorMessage('username')}
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label>Email</Label>
+                                <Input
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="myemail@email.com"
+                                />
+                                {getErrorMessage('email')}
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="password">Password</Label>
+                                <Input
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="********"
+                                />
+                                {getErrorMessage('password')}
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="passwordConfirmation">Password Confirmation</Label>
+                                <Input
+                                    value={passwordConfirmation}
+                                    onChange={e => setPasswordConfirmation(e.target.value)}
+                                    type="password"
+                                    name="passwordConfirmation"
+                                    id="passwordConfirmation"
+                                    placeholder="********"
+                                />
+                                {getErrorMessage('passwordConfirmation')}
+                            </FormGroup>
+                        </Col>
+                        <Button color="primary" onClick={handleSubmit}>
+                            Submit
+                        </Button>
+                    </Form>
+                ) : (
+                    <Alert color="success">
+                        You have been successfully registered.{' '}
+                        <NavLink tag={RRNavLink} exact to="/signin" className="nav-link">
+                            Sign in now
+                        </NavLink>
+                    </Alert>
+                )}
             </div>
         </div>
     );
