@@ -31,6 +31,11 @@ const TopNav = () => {
                         Register
                     </NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink tag={RRNavLink} exact to="/signin" className="nav-link" activeClassName="active">
+                        Sign In
+                    </NavLink>
+                </NavItem>
             </Nav>
         </div>
     );

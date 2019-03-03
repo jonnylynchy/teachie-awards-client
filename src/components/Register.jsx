@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Col, Form, FormGroup, Label, Input, Button, Alert, NavLink } from 'reactstrap';
 import { validateAll } from 'indicative';
 import { NavLink as RRNavLink } from 'react-router-dom';
 
+import GlobalContext from '../context/GlobalContext';
 import api from '../utils/API';
 
 const defaultState = { response: false, error: false };
 
-const SignUp = () => {
+const Register = () => {
+    const globalContext = useContext(GlobalContext);
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
@@ -16,6 +19,8 @@ const SignUp = () => {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [fieldErrors, setFieldErrors] = useState('');
     const [registrationResponse, setRegistrationResponse] = useState(defaultState);
+
+    const { updateLoading } = globalContext;
 
     const formStyle = {
         backgroundColor: '#fff',
@@ -54,10 +59,12 @@ const SignUp = () => {
                         : responseData.message;
                 setRegistrationResponse({ error: errorMessage });
             }
+            updateLoading(false);
         }
     };
 
     const handleSubmit = event => {
+        updateLoading(true);
         event.preventDefault();
         const data = {
             firstName,
@@ -94,6 +101,7 @@ const SignUp = () => {
                     formattedErrors[error.field] = error.message;
                 });
                 setFieldErrors(formattedErrors);
+                updateLoading(false);
             });
     };
 
@@ -211,4 +219,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Register;
