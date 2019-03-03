@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import GlobalContext from '../context/GlobalContext';
 import Home from '../pages/Home';
+import About from '../components/About';
+import Winners from '../components/Winners';
 import Events from '../components/Events';
 import Register from '../components/Register';
 import SignIn from '../components/SignIn';
 import Loader from '../components/Loader';
-
 import TopNav from '../components/TopNav';
+
 import API from '../utils/API';
 import './App.css';
 
@@ -38,7 +40,7 @@ class App extends PureComponent {
     };
 
     render() {
-        console.log('App Render State: ', this.state);
+        // console.log('App Render State: ', this.state);
         const { serverMessage, isLoading, auth } = this.state;
         const { updateLoading, updateAuth } = this;
         return (
@@ -51,6 +53,8 @@ class App extends PureComponent {
                         {/* NAV */}
                         <TopNav auth={auth} />
                         <Route exact path="/" render={() => <Home serverMessage={serverMessage} />} />
+                        <Route exact path="/about" component={About} />
+                        <Route exact path="/winners" component={Winners} />
                         <Route exact path="/events" component={Events} />
                         <Route exact path="/signin" component={SignIn} />
                         <Route exact path="/register" component={Register} />

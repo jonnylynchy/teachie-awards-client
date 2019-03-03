@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Loader = () => <div>Hi, there. This is the events page! Coming soon...</div>;
+import PageWrapper from './PageWrapper';
 
-export default Loader;
+const Events = () => <PageWrapper title="Events">This is the Events page. Coming soon...</PageWrapper>;
+
+export default Events;
