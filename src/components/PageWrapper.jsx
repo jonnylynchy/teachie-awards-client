@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
 
 const styles = {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    marginTop: '3em',
+    zIndex: 1001,
+    position: 'relative'
 };
 
 const PageWrapper = props => {
     const { title, children } = props;
     return (
-        <Container style={styles}>
+        <Container style={styles} className="mx-auto p-5 border border-primary rounded">
             <Row>
                 <Col>
                     <h1>{title}</h1>

@@ -37,12 +37,12 @@ const Home = props => {
             <Container>
                 <Row>
                     <Col sm="12">
-                        <div className="my-5 py-5" />
+                        <div className="my-5" />
                     </Col>
                 </Row>
                 <Row>
                     <Col sm="6">
-                        <Card body>
+                        <Card body className="border border-primary rounded">
                             <CardTitle>
                                 <h3>Fellow Faculty &amp; Students</h3>
                             </CardTitle>
@@ -55,7 +55,7 @@ const Home = props => {
                         </Card>
                     </Col>
                     <Col sm="6">
-                        <Card body>
+                        <Card body className="border border-primary rounded">
                             <CardTitle>
                                 <h3>Teachers and Educators</h3>
                             </CardTitle>
