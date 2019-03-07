@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import GlobalContext from '../context/GlobalContext';
 import Home from '../pages/Home';
-import About from '../components/About';
-import Winners from '../components/Winners';
-import Events from '../components/Events';
-import Register from '../components/Register';
-import SignIn from '../components/SignIn';
+import About from '../pages/About';
+import Winners from '../pages/Winners';
+import Events from '../pages/Events';
+import Register from '../pages/Register';
+import SignIn from '../pages/SignIn';
 import Loader from '../components/Loader';
 import TopNav from '../components/TopNav';
 
