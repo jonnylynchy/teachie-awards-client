@@ -53,7 +53,7 @@ const SignIn = () => {
 
         const rules = {
             usernameOrEmail: 'required|string|min:6|max:50',
-            password: 'required|string|min:6|max:10'
+            password: 'required|string|min:6|max:35'
         };
 
         const messages = {
