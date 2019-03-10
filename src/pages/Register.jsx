@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Col, Form, FormGroup, Label, Input, Button, Alert, NavLink } from 'reactstrap';
 import { validateAll } from 'indicative';
 import { NavLink as RRNavLink } from 'react-router-dom';
+import PageWrapper from '../components/PageWrapper';
 
 import GlobalContext from '../context/GlobalContext';
 import api from '../utils/API';
@@ -21,17 +22,6 @@ const Register = () => {
     const [registrationResponse, setRegistrationResponse] = useState(defaultState);
 
     const { updateLoading } = globalContext;
-
-    const formStyle = {
-        backgroundColor: '#fff',
-        minWidth: '450px'
-    };
-
-    const containerStyle = {
-        height: '90%',
-        zIndex: 100,
-        position: 'relative'
-    };
 
     const clearResponseData = () => {
         setRegistrationResponse(defaultState);
@@ -112,110 +102,111 @@ const Register = () => {
     };
 
     return (
-        <div style={containerStyle} className="d-flex align-items-center">
-            <div style={formStyle} className="w-50 mx-auto p-5 border border-primary rounded">
-                <h2>Sign Up</h2>
-                {registrationResponse.error ? <Alert color="danger">{registrationResponse.error}</Alert> : ''}
-                {!registrationResponse.response ? (
-                    <Form className="form">
-                        <Col>
-                            <FormGroup>
-                                <Label>First Name</Label>
-                                <Input
-                                    value={firstName}
-                                    onChange={e => setFirstName(e.target.value)}
-                                    type="text"
-                                    name="firstName"
-                                    id="firstName"
-                                    placeholder="First Name"
-                                />
-                                {getErrorMessage('firstName')}
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label>Last Name</Label>
-                                <Input
-                                    value={lastName}
-                                    onChange={e => setLastName(e.target.value)}
-                                    type="text"
-                                    name="lastName"
-                                    id="lastName"
-                                    placeholder="Last Name"
-                                />
-                                {getErrorMessage('lastName')}
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label>Username</Label>
-                                <Input
-                                    value={username}
-                                    onChange={e => setUsername(e.target.value)}
-                                    type="text"
-                                    name="username"
-                                    id="username"
-                                    placeholder="Username"
-                                />
-                                {getErrorMessage('username')}
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label>Email</Label>
-                                <Input
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    placeholder="myemail@email.com"
-                                />
-                                {getErrorMessage('email')}
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label for="password">Password</Label>
-                                <Input
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="********"
-                                />
-                                {getErrorMessage('password')}
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label for="passwordConfirmation">Password Confirmation</Label>
-                                <Input
-                                    value={passwordConfirmation}
-                                    onChange={e => setPasswordConfirmation(e.target.value)}
-                                    type="password"
-                                    name="passwordConfirmation"
-                                    id="passwordConfirmation"
-                                    placeholder="********"
-                                />
-                                {getErrorMessage('passwordConfirmation')}
-                            </FormGroup>
-                        </Col>
-                        <Button color="primary" onClick={handleSubmit}>
-                            Submit
-                        </Button>
-                    </Form>
-                ) : (
-                    <Alert color="success">
-                        You have been successfully registered.{' '}
-                        <NavLink tag={RRNavLink} exact to="/signin" className="nav-link">
-                            Sign in now
-                        </NavLink>
-                    </Alert>
-                )}
-            </div>
-        </div>
+        <PageWrapper title="Register">
+            {registrationResponse.error ? <Alert color="danger">{registrationResponse.error}</Alert> : ''}
+            {!registrationResponse.response ? (
+                <Form className="form">
+                    <Col>
+                        <FormGroup>
+                            <Label>First Name</Label>
+                            <Input
+                                value={firstName}
+                                onChange={e => setFirstName(e.target.value)}
+                                type="text"
+                                name="firstName"
+                                id="firstName"
+                                placeholder="First Name"
+                            />
+                            {getErrorMessage('firstName')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label>Last Name</Label>
+                            <Input
+                                value={lastName}
+                                onChange={e => setLastName(e.target.value)}
+                                type="text"
+                                name="lastName"
+                                id="lastName"
+                                placeholder="Last Name"
+                            />
+                            {getErrorMessage('lastName')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label>Username</Label>
+                            <Input
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                type="text"
+                                name="username"
+                                id="username"
+                                placeholder="Username"
+                            />
+                            {getErrorMessage('username')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label>Email</Label>
+                            <Input
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="myemail@email.com"
+                            />
+                            {getErrorMessage('email')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="password">Password</Label>
+                            <Input
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="********"
+                            />
+                            {getErrorMessage('password')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="passwordConfirmation">Password Confirmation</Label>
+                            <Input
+                                value={passwordConfirmation}
+                                onChange={e => setPasswordConfirmation(e.target.value)}
+                                type="password"
+                                name="passwordConfirmation"
+                                id="passwordConfirmation"
+                                placeholder="********"
+                            />
+                            {getErrorMessage('passwordConfirmation')}
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup className="float-right">
+                            <Button color="primary" size="lg" onClick={handleSubmit}>
+                                Submit
+                            </Button>
+                        </FormGroup>
+                    </Col>
+                </Form>
+            ) : (
+                <Alert color="success">
+                    You have been successfully registered.{' '}
+                    <NavLink tag={RRNavLink} exact to="/signin" className="nav-link">
+                        Sign in now
+                    </NavLink>
+                </Alert>
+            )}
+        </PageWrapper>
     );
 };
 

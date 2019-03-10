@@ -1,6 +1,20 @@
-import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import React, { useContext, useState } from 'react';
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    Nav,
+    NavItem,
+    NavLink,
+    Collapse,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
+
+import GlobalContext from '../context/GlobalContext';
 
 const navStyles = {
     background: '#fff',
@@ -9,12 +23,19 @@ const navStyles = {
 };
 
 const TopNav = () => {
+    const globalContext = useContext(GlobalContext);
+    const [isOpen, setIsOpen] = useState('');
+    const { user } = globalContext;
+
     return (
-        <div className="border-bottom border-primary" style={navStyles}>
+        <Navbar color="light" light expand="md" style={navStyles}>
             <div className="container d-flex justify-content-between">
-                <h2>Teachie Awards</h2>
-                <div className="d-flex flex-row-reverse">
-                    <Nav>
+                <NavbarBrand href="/">
+                    <i className="fas fa-trophy" /> Teachie Awards
+                </NavbarBrand>
+                <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
+                <Collapse isOpen={isOpen} navbar>
+                    <Nav navbar className="ml-auto">
                         <NavItem>
                             <NavLink tag={RRNavLink} exact to="/" className="nav-link" activeClassName="active">
                                 Home
@@ -41,14 +62,33 @@ const TopNav = () => {
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={RRNavLink} exact to="/signin" className="nav-link" activeClassName="active">
-                                Sign In
-                            </NavLink>
+                            {user.username ? (
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret>
+                                        <span>{user.username}</span>
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>My Account</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>Logout</DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            ) : (
+                                <NavLink
+                                    tag={RRNavLink}
+                                    exact
+                                    to="/signin"
+                                    className="nav-link"
+                                    activeClassName="active"
+                                >
+                                    Sign In
+                                </NavLink>
+                            )}
                         </NavItem>
                     </Nav>
-                </div>
+                </Collapse>
             </div>
-        </div>
+        </Navbar>
     );
 };
 

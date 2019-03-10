@@ -5,6 +5,7 @@ html {
 
 body {
     color: #5c5c5c;
+    font-family: 'Questrial', sans-serif;
 }
 
 header {
@@ -32,4 +33,8 @@ header {
     display: inline-block;
     height: 734px;
     width: 218px;
+}
+
+.footer {
+    background: rgb(243, 243, 243);
 }

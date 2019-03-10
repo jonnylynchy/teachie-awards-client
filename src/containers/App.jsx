@@ -11,14 +11,16 @@ import SignIn from '../pages/SignIn';
 import Loader from '../components/Loader';
 import TopNav from '../components/TopNav';
 
-import API from '../utils/API';
+import { ACCESS_TOKEN } from '../constants';
+import API, { getCurrentUser } from '../utils/API';
 import './App.css';
 
 class App extends PureComponent {
     state = {
         serverMessage: '',
         isLoading: false,
-        auth: {}
+        auth: {},
+        user: {}
     };
 
     componentDidMount() {
@@ -39,25 +41,40 @@ class App extends PureComponent {
         this.setState({ auth });
     };
 
+    updateUser = (user = {}) => {
+        this.setState({ user });
+    };
+
     render() {
-        // console.log('App Render State: ', this.state);
-        const { serverMessage, isLoading, auth } = this.state;
-        const { updateLoading, updateAuth } = this;
+        const { serverMessage, isLoading, auth, user } = this.state;
+        const { updateLoading, updateAuth, updateUser } = this;
+
+        if (localStorage.getItem(ACCESS_TOKEN) && !user.username) {
+            getCurrentUser().then(currentUser => updateUser(currentUser.data));
+        }
+
         return (
             <Router>
-                <GlobalContext.Provider value={{ updateLoading, updateAuth, auth }}>
-                    <div className="h-100">
-                        {isLoading ? <Loader /> : ''}
-                        <div className="circle" />
-                        <div className="hex" />
-                        {/* NAV */}
-                        <TopNav auth={auth} />
-                        <Route exact path="/" render={() => <Home serverMessage={serverMessage} />} />
-                        <Route exact path="/about" component={About} />
-                        <Route exact path="/winners" component={Winners} />
-                        <Route exact path="/events" component={Events} />
-                        <Route exact path="/signin" component={SignIn} />
-                        <Route exact path="/register" component={Register} />
+                <GlobalContext.Provider value={{ updateLoading, updateAuth, updateUser, auth, user }}>
+                    <div className="d-flex flex-column h-100">
+                        <div>
+                            {isLoading ? <Loader /> : ''}
+                            <div className="circle" />
+                            <div className="hex" />
+                            {/* NAV */}
+                            <TopNav auth={auth} />
+                            <Route exact path="/" render={() => <Home serverMessage={serverMessage} />} />
+                            <Route exact path="/about" component={About} />
+                            <Route exact path="/winners" component={Winners} />
+                            <Route exact path="/events" component={Events} />
+                            <Route exact path="/signin" component={SignIn} />
+                            <Route exact path="/register" component={Register} />
+                        </div>
+                        <footer className="footer mt-auto py-3">
+                            <div className="container">
+                                <span className="text-muted">Teachie Awards</span>
+                            </div>
+                        </footer>
                     </div>
                 </GlobalContext.Provider>
             </Router>

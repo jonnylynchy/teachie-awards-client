@@ -1,15 +1,40 @@
 import axios from 'axios';
 
-const BASEURL = process.env.NODE_ENV === 'production' ? 'https://api.teachieawards.com/api' : '/api';
+import { BASE_API_URL, ACCESS_TOKEN } from '../constants';
 
-export default {
+const requestConfig = () => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        config.headers.Authorization = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`;
+    }
+
+    return config;
+};
+
+const API = {
     get: path => {
-        return axios.get(`${BASEURL}${path}`);
+        const config = requestConfig();
+        return axios.get(`${BASE_API_URL}${path}`, config);
     },
     post: (path, payload = {}) => {
+        const config = requestConfig();
         return axios
-            .post(`${BASEURL}${path}`, payload)
+            .post(`${BASE_API_URL}${path}`, payload, config)
             .then(response => response)
             .catch(error => error);
     }
 };
+
+export const getCurrentUser = async () => {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+        const noTokenErr = new Error('No access token set.');
+        return Promise.reject(noTokenErr);
+    }
+
+    return API.get('/user/me');
+};
+
+export default API;
