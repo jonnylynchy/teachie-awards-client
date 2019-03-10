@@ -70,7 +70,7 @@ const Register = () => {
             lastName: 'required|string',
             username: 'required|string',
             email: 'required|email',
-            password: 'required|string|min:6|max:10|confirmed'
+            password: 'required|string|min:6|max:35|confirmed'
         };
 
         const messages = {
