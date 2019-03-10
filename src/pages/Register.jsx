@@ -21,7 +21,7 @@ const Register = () => {
     const [fieldErrors, setFieldErrors] = useState('');
     const [registrationResponse, setRegistrationResponse] = useState(defaultState);
 
-    const { updateLoading } = globalContext;
+    const { updateLoading, user } = globalContext;
 
     const clearResponseData = () => {
         setRegistrationResponse(defaultState);
@@ -100,6 +100,10 @@ const Register = () => {
             fieldErrors && fieldErrors[field] ? <div className="text-danger">{fieldErrors[field]}</div> : '';
         return fieldError;
     };
+
+    if (user.username) {
+        return <PageWrapper title="Register">You are already registered.</PageWrapper>;
+    }
 
     return (
         <PageWrapper title="Register">
