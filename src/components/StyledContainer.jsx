@@ -20,7 +20,6 @@ ContentContainer.propTypes = {
 const StyledContainer = styled(ContentContainer)`
     background-color: #fff;
     margin-top: 3em;
-    z-index: 1001;
     position: relative;
 `;
 
