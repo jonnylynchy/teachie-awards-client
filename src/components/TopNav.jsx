@@ -15,11 +15,11 @@ import {
 import { NavLink as RRNavLink } from 'react-router-dom';
 
 import GlobalContext from '../context/GlobalContext';
+import './TopNav.css';
 
 const navStyles = {
-    background: '#fff',
     borderBottom: '#e5e5e5',
-    padding: '10px 5px'
+    padding: '20px 5px'
 };
 
 const TopNav = () => {
@@ -28,7 +28,7 @@ const TopNav = () => {
     const { user } = globalContext;
 
     return (
-        <Navbar color="light" light expand="md" style={navStyles}>
+        <Navbar color="white" light expand="md" style={navStyles} className="top-nav">
             <div className="container d-flex justify-content-between">
                 <NavbarBrand href="/">
                     <i className="fas fa-trophy" /> Teachie Awards
