@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
+import GlobalContext from '../context/GlobalContext';
 import api from '../utils/API';
 import PageWrapper from '../components/PageWrapper';
 
@@ -10,8 +11,13 @@ const Events = () => {
     const [eventList, setEventList] = useState([]);
     const [schoolName, setSchoolName] = useState(null);
 
+    const globalContext = useContext(GlobalContext);
+    const { updateLoading } = globalContext;
+
     const getList = async path => {
+        updateLoading(true);
         const response = await api.get(path);
+        updateLoading(false);
         return response;
     };
 
