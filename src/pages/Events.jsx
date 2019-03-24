@@ -7,6 +7,8 @@ import PageWrapper from '../components/PageWrapper';
 const Events = () => {
     const [schoolDistrictList, setSchoolDistrictList] = useState(null);
     const [schoolList, setSchoolList] = useState([]);
+    const [eventList, setEventList] = useState([]);
+    const [schoolName, setSchoolName] = useState(null);
 
     const getList = async path => {
         const response = await api.get(path);
@@ -17,6 +19,14 @@ const Events = () => {
         const districtId = e.target.value;
         getList(`/schools/district/${districtId}`).then(response => {
             setSchoolList(response.data);
+        });
+    };
+
+    const getEvents = e => {
+        const schoolId = e.target.value.split('|')[0];
+        setSchoolName(e.target.value.split('|')[1]);
+        getList(`/events/school/${schoolId}`).then(response => {
+            setEventList(response.data);
         });
     };
 
@@ -48,15 +58,31 @@ const Events = () => {
             {schoolList.length ? (
                 <FormGroup>
                     <Label for="districtSelect">School</Label>
-                    <Input type="select" name="schoolSelect" id="schoolSelect">
+                    <Input type="select" name="schoolSelect" id="schoolSelect" onChange={getEvents}>
                         <option value="0">Select School</option>
                         {schoolList.map(school => (
-                            <option value={school.schoolId} key={school.schoolId}>
+                            <option value={`${school.schoolId}|${school.name}`} key={school.schoolId}>
                                 {school.name}
                             </option>
                         ))}
                     </Input>
                 </FormGroup>
+            ) : null}
+
+            {eventList.length ? (
+                <>
+                    <h2>{schoolName}</h2>
+                    <div>
+                        {eventList.map(event => (
+                            <div key={event.eventId}>
+                                <h4>{event.name}</h4>
+                                <div>Starts: {event.startDate}</div>
+                                <div>Ends: {event.endDate}</div>
+                                <p>&nbsp;</p>
+                            </div>
+                        ))}
+                    </div>
+                </>
             ) : null}
         </PageWrapper>
     );
