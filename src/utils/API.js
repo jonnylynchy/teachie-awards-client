@@ -17,7 +17,17 @@ const requestConfig = () => {
 const API = {
     get: path => {
         const config = requestConfig();
-        return axios.get(`${BASE_API_URL}${path}`, config);
+        return axios
+            .get(`${BASE_API_URL}${path}`, config)
+            .then(response => response)
+            .catch(error => {
+                // if refresh auth attempt fails
+                // delete expired token
+                if (error.toString().indexOf('401') > -1 && !!localStorage.getItem(ACCESS_TOKEN)) {
+                    localStorage.removeItem(ACCESS_TOKEN);
+                }
+                return error;
+            });
     },
     post: (path, payload = {}) => {
         const config = requestConfig();

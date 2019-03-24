@@ -24,7 +24,7 @@ const navStyles = {
 
 const TopNav = () => {
     const globalContext = useContext(GlobalContext);
-    const [isOpen, setIsOpen] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
     const { user } = globalContext;
 
     return (
