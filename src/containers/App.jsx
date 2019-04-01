@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import About from '../pages/About';
 import Winners from '../pages/Winners';
 import Events from '../pages/Events';
+import EventDetail from '../pages/EventDetail';
 import Register from '../pages/Register';
 import SignIn from '../pages/SignIn';
 import Loader from '../components/Loader';
@@ -67,8 +68,9 @@ class App extends PureComponent {
                             <Route exact path="/about" component={About} />
                             <Route exact path="/winners" component={Winners} />
                             <Route exact path="/events" component={Events} />
+                            <Route exact path="/events/detail/:id" component={EventDetail} />
                             <Route exact path="/signin" component={SignIn} />
-                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/(register|register-educator)/" component={Register} />
                         </div>
                         <footer className="footer mt-auto py-3">
                             <div className="container">

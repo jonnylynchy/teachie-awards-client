@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Col, Form, FormGroup, Label, Input, Button, Alert, NavLink } from 'reactstrap';
 import { validateAll } from 'indicative';
-import { NavLink as RRNavLink } from 'react-router-dom';
-import PageWrapper from '../components/PageWrapper';
+import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
 
+import PageWrapper from '../components/PageWrapper';
 import GlobalContext from '../context/GlobalContext';
 import api from '../utils/API';
 
 const defaultState = { response: false, error: false };
 
-const Register = () => {
+const Register = props => {
     const globalContext = useContext(GlobalContext);
 
     const [firstName, setFirstName] = useState('');
@@ -27,12 +28,25 @@ const Register = () => {
         setRegistrationResponse(defaultState);
     };
 
+    const getRegisterAPIPath = () => {
+        const {
+            location: { pathname }
+        } = props;
+        if (pathname.includes('educator')) {
+            return '/auth/signup-educator';
+        }
+        return '/auth/signup';
+    };
+
     const postUserData = async data => {
         // clear out response
         clearResponseData();
 
+        // Educator or user?
+        const path = getRegisterAPIPath();
+
         // post to api
-        const response = await api.post('/auth/signup', data);
+        const response = await api.post(path, data);
         if (response && ((response.response && response.response.data) || response.data)) {
             if (response.data && response.data.success) {
                 // Success!
@@ -214,4 +228,10 @@ const Register = () => {
     );
 };
 
-export default Register;
+Register.propTypes = {
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired
+    }).isRequired
+};
+
+export default withRouter(props => <Register {...props} />);

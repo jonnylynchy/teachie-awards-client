@@ -65,7 +65,7 @@ const Home = props => {
                                 Interested in participating in Teachies Register to be rewarded by your peers and
                                 students.
                             </CardText>
-                            <Button color="primary" to="/register" tag={RRNavLink}>
+                            <Button color="primary" to="/register-educator" tag={RRNavLink}>
                                 Register
                             </Button>
                         </Card>
