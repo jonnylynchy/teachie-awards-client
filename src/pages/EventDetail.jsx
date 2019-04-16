@@ -34,7 +34,6 @@ const EventDetail = props => {
         }
     }, [event]);
 
-    console.log('auth: ', auth);
     return (
         <PageWrapper title={event && event.name}>
             <div>
