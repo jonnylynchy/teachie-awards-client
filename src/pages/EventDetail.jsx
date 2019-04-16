@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Card, Button, CardTitle, CardText, Col } from 'reactstrap';
 
 import GlobalContext from '../context/GlobalContext';
@@ -11,7 +11,7 @@ import dateFormat from '../utils/date';
 const EventDetail = props => {
     const [event, setEvent] = useState({ name: '' });
     const globalContext = useContext(GlobalContext);
-    const { updateLoading } = globalContext;
+    const { updateLoading, auth } = globalContext;
 
     const {
         match: {
@@ -29,12 +29,12 @@ const EventDetail = props => {
     useEffect(() => {
         if (event.name === '') {
             getEvent(`/events/${id}`).then(response => {
-                console.log(response);
                 setEvent(response.data);
             });
         }
     }, [event]);
 
+    console.log('auth: ', auth);
     return (
         <PageWrapper title={event && event.name}>
             <div>
@@ -44,7 +44,7 @@ const EventDetail = props => {
                         <p>
                             This event runs from {dateFormat(event.startDate)} through {dateFormat(event.endDate)}
                         </p>
-                        <Button color="primary">Vote</Button>
+                        {auth && auth.accessToken ? <Button color="primary">Vote</Button> : <div>Sign in to vote</div>}
                     </div>
                 ) : null}
             </div>

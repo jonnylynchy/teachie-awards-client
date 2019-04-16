@@ -50,8 +50,17 @@ class App extends PureComponent {
         const { serverMessage, isLoading, auth, user } = this.state;
         const { updateLoading, updateAuth, updateUser } = this;
 
-        if (localStorage.getItem(ACCESS_TOKEN) && !user.username) {
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
+        if (accessToken && !user.username) {
             getCurrentUser().then(currentUser => updateUser(currentUser.data));
+        }
+
+        if (accessToken && !auth.accessToken) {
+            const authObj = {
+                accessToken,
+                tokenType: 'Bearer'
+            };
+            updateAuth(authObj);
         }
 
         return (
