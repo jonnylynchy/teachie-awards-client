@@ -42,9 +42,6 @@ const EventDetail = props => {
     }, [event]);
 
     const voteForUser = educatorId => {
-        console.log('Educator: ', educatorId);
-        console.log('User: ', user.id);
-        console.log('Event: ', id);
         getData(`/user/educator/vote?eventId=${id}&userId=${user.id}&educatorId=${educatorId}`).then(response => {
             console.log(response);
         });

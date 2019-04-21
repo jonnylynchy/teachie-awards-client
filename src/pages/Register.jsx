@@ -126,7 +126,7 @@ const Register = props => {
     };
 
     if (user.username) {
-        return <PageWrapper title="Register">You are already registered.</PageWrapper>;
+        return <PageWrapper title={getTitle()}>You are already registered.</PageWrapper>;
     }
 
     return (
