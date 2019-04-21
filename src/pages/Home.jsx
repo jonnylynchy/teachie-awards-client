@@ -6,7 +6,6 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 import award from '../images/temp-award-2.png';
 
 const Home = props => {
-    const { serverMessage } = props;
     return (
         <>
             {/* HERO */}
@@ -24,12 +23,6 @@ const Home = props => {
                                 The Teachie Awards give students, faculty and communities the ability to recognize the
                                 educators among us who give their time to empower kids to have better and brighter
                                 futures.
-                            </p>
-                            <p className="mt-4 ml-3">
-                                <small>
-                                    <b>Server Message: </b>
-                                    {serverMessage}
-                                </small>
                             </p>
                         </div>
                     </div>
@@ -74,11 +67,6 @@ const Home = props => {
             </Container>
         </>
     );
-};
-
-// TODO: Remove later
-Home.propTypes = {
-    serverMessage: PropTypes.string.isRequired
 };
 
 export default Home;

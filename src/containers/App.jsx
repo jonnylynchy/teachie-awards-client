@@ -18,20 +18,9 @@ import './App.css';
 
 class App extends PureComponent {
     state = {
-        serverMessage: '',
         isLoading: false,
         auth: {},
         user: {}
-    };
-
-    componentDidMount() {
-        this.upTest();
-    }
-
-    upTest = () => {
-        API.get('/public/uptest')
-            .then(res => this.setState({ serverMessage: res.data }))
-            .catch(err => console.log(err));
     };
 
     updateLoading = (isLoading = false) => {
@@ -47,7 +36,7 @@ class App extends PureComponent {
     };
 
     render() {
-        const { serverMessage, isLoading, auth, user } = this.state;
+        const { isLoading, auth, user } = this.state;
         const { updateLoading, updateAuth, updateUser } = this;
 
         const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -73,7 +62,7 @@ class App extends PureComponent {
                             <div className="hex" />
                             {/* NAV */}
                             <TopNav auth={auth} />
-                            <Route exact path="/" render={() => <Home serverMessage={serverMessage} />} />
+                            <Route exact path="/" component={Home} />
                             <Route exact path="/about" component={About} />
                             <Route exact path="/winners" component={Winners} />
                             <Route exact path="/events" component={Events} />
