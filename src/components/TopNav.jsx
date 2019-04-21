@@ -14,12 +14,22 @@ import {
 } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
 
+import { ACCESS_TOKEN } from '../constants';
 import GlobalContext from '../context/GlobalContext';
 import './TopNav.css';
 
 const navStyles = {
     borderBottom: '#e5e5e5',
     padding: '20px 5px'
+};
+
+const logout = () => {
+    // delete access token
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        localStorage.removeItem(ACCESS_TOKEN);
+    }
+    // redirect user
+    window.location.href = '/';
 };
 
 const TopNav = () => {
@@ -61,30 +71,21 @@ const TopNav = () => {
                                 Register
                             </NavLink>
                         </NavItem>
-                        <NavItem>
-                            {user.username ? (
-                                <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav caret>
-                                        <span>{user.username}</span>
-                                    </DropdownToggle>
-                                    <DropdownMenu right>
-                                        <DropdownItem>My Account</DropdownItem>
-                                        <DropdownItem divider />
-                                        <DropdownItem>Logout</DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-                            ) : (
-                                <NavLink
-                                    tag={RRNavLink}
-                                    exact
-                                    to="/signin"
-                                    className="nav-link"
-                                    activeClassName="active"
-                                >
-                                    Sign In
-                                </NavLink>
-                            )}
-                        </NavItem>
+
+                        {user.username ? (
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    <span>{user.username}</span>
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem onClick={logout}>Logout</DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        ) : (
+                            <NavLink tag={RRNavLink} exact to="/signin" className="nav-link" activeClassName="active">
+                                Sign In
+                            </NavLink>
+                        )}
                     </Nav>
                 </Collapse>
             </div>

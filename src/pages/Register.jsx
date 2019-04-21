@@ -38,6 +38,16 @@ const Register = props => {
         return '/auth/signup';
     };
 
+    const getTitle = () => {
+        const {
+            location: { pathname }
+        } = props;
+        if (pathname.includes('educator')) {
+            return 'Register Educator';
+        }
+        return 'Register';
+    };
+
     const postUserData = async data => {
         // clear out response
         clearResponseData();
@@ -116,11 +126,11 @@ const Register = props => {
     };
 
     if (user.username) {
-        return <PageWrapper title="Register">You are already registered.</PageWrapper>;
+        return <PageWrapper title={getTitle()}>You are already registered.</PageWrapper>;
     }
 
     return (
-        <PageWrapper title="Register">
+        <PageWrapper title={getTitle()}>
             {registrationResponse.error ? <Alert color="danger">{registrationResponse.error}</Alert> : ''}
             {!registrationResponse.response ? (
                 <Form className="form">
