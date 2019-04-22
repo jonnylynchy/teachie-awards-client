@@ -1,3 +1,6 @@
+/**
+ * This is the loader component that will appear when data is fetching
+ */
 import React from 'react';
 import ScaleLoader from '@bit/davidhu2000.react-spinners.scale-loader';
 

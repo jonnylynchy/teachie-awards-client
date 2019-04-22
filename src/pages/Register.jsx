@@ -1,3 +1,7 @@
+/**
+ * This is the registration page.
+ * This page handles both user registration and educator registration.
+ */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, FormGroup, Label, Input, Button, Alert, NavLink } from 'reactstrap';

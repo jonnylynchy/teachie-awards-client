@@ -1,3 +1,6 @@
+/**
+ * This is the sign in page.
+ */
 import React, { useState, useContext } from 'react';
 import { Col, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import { Redirect } from 'react-router-dom';

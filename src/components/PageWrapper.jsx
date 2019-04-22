@@ -1,3 +1,7 @@
+/**
+ * This component just wraps a component and
+ * returns a container with a title and children
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 

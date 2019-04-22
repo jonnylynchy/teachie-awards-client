@@ -1,3 +1,6 @@
+/**
+ * This is the main boostrapping project file
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

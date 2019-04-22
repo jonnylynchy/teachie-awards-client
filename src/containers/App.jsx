@@ -1,3 +1,6 @@
+/**
+ * This is the main app component.
+ */
 import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 

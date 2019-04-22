@@ -1,3 +1,6 @@
+/**
+ * This is the top navigation component
+ */
 import React, { useContext, useState } from 'react';
 import {
     Navbar,

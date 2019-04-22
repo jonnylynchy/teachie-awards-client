@@ -1,3 +1,6 @@
+/**
+ * This is the listed events page.
+ */
 import React, { useState, useEffect, useContext } from 'react';
 import { FormGroup, Label, Input, Row, Col } from 'reactstrap';
 

@@ -1,3 +1,6 @@
+/**
+ * Put all constants in this file
+ */
 export const ACCESS_TOKEN = 'accessToken';
 export const PROD_API_URL = 'https://api.teachieawards.com/api';
 export const DEV_API_URL = '/api';

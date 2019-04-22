@@ -1,3 +1,6 @@
+/**
+ * This component renders a single event card.
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';

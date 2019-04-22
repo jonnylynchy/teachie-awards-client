@@ -1,5 +1,7 @@
+/**
+ * This is the home page.
+ */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, Row, Col, Card, CardTitle, CardText, Button } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
 

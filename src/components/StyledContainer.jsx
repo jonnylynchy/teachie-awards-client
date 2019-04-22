@@ -1,3 +1,6 @@
+/**
+ * This is a styled container for bordered content.
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 

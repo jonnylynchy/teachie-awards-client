@@ -1,7 +1,15 @@
+/**
+ * API
+ * These functions simplify the fetching of data from APIs.
+ */
+
 import axios from 'axios';
 
 import { BASE_API_URL, ACCESS_TOKEN } from '../constants';
 
+/**
+ * This function sets up a config object to pass along the json web token with requests
+ */
 const requestConfig = () => {
     const config = {
         headers: { 'Content-Type': 'application/json' }
@@ -14,6 +22,9 @@ const requestConfig = () => {
     return config;
 };
 
+/**
+ * Main API object to be used when fetching APIs
+ */
 const API = {
     get: path => {
         const config = requestConfig();
@@ -38,6 +49,9 @@ const API = {
     }
 };
 
+/**
+ * This function will return the current user
+ */
 export const getCurrentUser = async () => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
         const noTokenErr = new Error('No access token set.');
