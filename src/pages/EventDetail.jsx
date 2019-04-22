@@ -11,7 +11,8 @@ import dateFormat from '../utils/date';
 const EventDetail = props => {
     const [event, setEvent] = useState({ name: '' });
     const [educators, setEducators] = useState([]);
-
+    const [userVotesList, setUserVotesList] = useState([]);
+    const [hasVoted, setHasVoted] = useState(false);
     const globalContext = useContext(GlobalContext);
     const { updateLoading, auth, user } = globalContext;
 
@@ -28,6 +29,12 @@ const EventDetail = props => {
         return response;
     };
 
+    const updateEducators = () => {
+        getData('/user/educators').then(response => {
+            setEducators(response.data);
+        });
+    };
+
     useEffect(() => {
         if (event.name === '') {
             getData(`/events/${id}`).then(response => {
@@ -35,19 +42,36 @@ const EventDetail = props => {
             });
         }
         if (!educators.length) {
-            getData('/user/educators').then(response => {
-                setEducators(response.data);
+            updateEducators();
+        }
+        if (user && user.id && !userVotesList.length) {
+            getData(`/user/votesByUser/${user.id}`).then(response => {
+                response.data.forEach(vote => {
+                    if (vote.event.eventId === parseInt(id, 0)) {
+                        setHasVoted(true);
+                    }
+                });
+                setUserVotesList(response.data);
             });
         }
     }, [event]);
 
     const voteForUser = educatorId => {
         getData(`/user/educator/vote?eventId=${id}&userId=${user.id}&educatorId=${educatorId}`).then(response => {
-            console.log(response);
+            setHasVoted(true);
+            updateEducators();
         });
     };
 
     const VotingLink = props => {
+        if (hasVoted) {
+            return (
+                <Button color="primary" disabled title="You've already voted in this event.">
+                    Vote for {props.firstName}
+                </Button>
+            );
+        }
+
         if (auth && auth.accessToken) {
             return (
                 <Button color="primary" onClick={() => voteForUser(props.id)}>
@@ -55,6 +79,7 @@ const EventDetail = props => {
                 </Button>
             );
         }
+
         return <div>Sign in to vote</div>;
     };
 
@@ -75,9 +100,10 @@ const EventDetail = props => {
                                     </Col>
                                     <Col xs="10" md="7" className="p-3">
                                         <h4>
-                                            {educator.firstName} {educator.lastName}
+                                            {educator.firstName} {educator.lastName}{' '}
+                                            <small>Votes: {educator.votes.length}</small>
                                         </h4>
-                                        <p>{educator.firstName} has taught at x school for x years.</p>
+                                        <p>{educator.firstName} has taught at this school for 15 years.</p>
                                     </Col>
                                     <Col xs="6" md="3" className="p-3">
                                         <VotingLink id={educator.id} firstName={educator.firstName} />
